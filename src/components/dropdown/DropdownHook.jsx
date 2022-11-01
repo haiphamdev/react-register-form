@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import { useWatch } from "react-hook-form";
 import useClickOutSide from "../../hooks/useClickOutSide";
 
-const DropdownHook = ({ control, setValue, name }) => {
+const DropdownHook = ({
+  control,
+  setValue,
+  name,
+  data,
+  dropdownLabel = "Select your job",
+}) => {
   const { show, setShow, nodeRef } = useClickOutSide();
   useWatch({
     control,
@@ -15,7 +21,7 @@ const DropdownHook = ({ control, setValue, name }) => {
     setLabel(e.target.textContent);
   };
 
-  const [label, setLabel] = useState("Select your job");
+  const [label, setLabel] = useState(dropdownLabel);
 
   return (
     <div className="relative" ref={nodeRef}>
@@ -30,27 +36,16 @@ const DropdownHook = ({ control, setValue, name }) => {
           show ? "" : "opacity-0 invisible"
         }`}
       >
-        <div
-          className="p-5 cursor-pointer hover:bg-slate-100"
-          onClick={handleClickDropdownItem}
-          data-value="teacher"
-        >
-          Teacher
-        </div>
-        <div
-          className="p-5 cursor-pointer hover:bg-slate-100"
-          onClick={handleClickDropdownItem}
-          data-value="developer"
-        >
-          Developer
-        </div>
-        <div
-          className="p-5 cursor-pointer hover:bg-slate-100"
-          onClick={handleClickDropdownItem}
-          data-value="doctor"
-        >
-          Doctor
-        </div>
+        {data?.map((item) => (
+          <div
+            className="p-5 cursor-pointer hover:bg-slate-100"
+            onClick={handleClickDropdownItem}
+            data-value={item.value}
+            key={item.id}
+          >
+            {item.text}
+          </div>
+        ))}
       </div>
     </div>
   );

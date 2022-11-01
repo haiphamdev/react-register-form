@@ -5,6 +5,24 @@ import DropdownHook from "../dropdown/DropdownHook";
 import InputHook from "../input/InputHook";
 import RadioHook from "../radio/RadioHook";
 
+const dropdownData = [
+  {
+    id: 1,
+    value: "teacher",
+    text: "Teacher",
+  },
+  {
+    id: 2,
+    value: "developer",
+    text: "Developer",
+  },
+  {
+    id: 3,
+    value: "doctor",
+    text: "Doctor",
+  },
+];
+
 const RegisterHook = () => {
   const {
     register,
@@ -75,7 +93,12 @@ const RegisterHook = () => {
       </div>
       <div className="flex flex-col gap-3 mb-5">
         <span>Are you</span>
-        <DropdownHook control={control} setValue={setValue} name="job" />
+        <DropdownHook
+          control={control}
+          setValue={setValue}
+          name="job"
+          dropdownLabel="Please select"
+        />
       </div>
       <div>
         <CheckboxHook
