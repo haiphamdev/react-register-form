@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useWatch } from "react-hook-form";
 import useClickOutSide from "../../hooks/useClickOutSide";
 
@@ -10,11 +10,12 @@ const DropdownHook = ({
   dropdownLabel = "Select your job",
 }) => {
   const { show, setShow, nodeRef } = useClickOutSide();
-  useWatch({
+  const dropdownValue = useWatch({
     control,
     name: "job",
-    defaultValue: "",
+    defaultValue: "", // default value before the render
   });
+  console.log("dropdownValue", dropdownValue);
   const handleClickDropdownItem = (e) => {
     setValue(name, e.target.dataset.value);
     setShow(false);
@@ -22,6 +23,10 @@ const DropdownHook = ({
   };
 
   const [label, setLabel] = useState(dropdownLabel);
+
+  useEffect(() => {
+    if (dropdownValue === "") setLabel(dropdownLabel);
+  }, [dropdownValue]);
 
   return (
     <div className="relative" ref={nodeRef}>
@@ -33,7 +38,7 @@ const DropdownHook = ({
       </div>
       <div
         className={`absolute top-full left-0 w-full rounded-lg bg-white ${
-          show ? "" : "opacity-0 invisible"
+          show ? "" : "opacity-50 invisible"
         }`}
       >
         {data?.map((item) => (
