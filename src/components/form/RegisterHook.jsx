@@ -33,7 +33,7 @@ const schema = yup
       .string()
       .required("Please select your job")
       .oneOf(["teacher", "developer", "doctor"]),
-    term: yup.boolean().required("Please accept the terms and conditions"),
+    term: yup.boolean(true).required("Please accept the terms and conditions"),
   })
   .required();
 
